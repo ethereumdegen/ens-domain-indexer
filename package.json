@@ -1,0 +1,43 @@
+{
+  "name": "ens-domain-indexer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "yarn tsc",
+    "test": "NODE_ENV=TEST ts-mocha -p tsconfig.testing.json 'test/**/*.spec.ts' --timeout 10000",
+    "start": "yarn ts-node tasks/start.ts",
+    "resolve": "yarn ts-node tasks/resolve.ts",
+    "resolveReverse": "yarn ts-node tasks/resolveReverse.ts"
+  },
+  "author": "apexmfer",
+  "license": "MIT",
+  "dependencies": {
+    "@ensdomains/eth-ens-namehash": "^2.0.15",
+    "dotenv": "^16.0.3",
+    "mongoose": "^6.9.1",
+    "vibegraph": "^0.40.1"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.3.3",
+    "@types/mocha": "^10.0.0",
+    "@types/node": "^18.11.2",
+    "@typescript-eslint/eslint-plugin": "^5.5.0",
+    "@typescript-eslint/parser": "^5.5.0",
+    "babel-eslint": "^10.0.1",
+    "chai": "^4.3.4",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-config-standard-kit": "0.15.1",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
+    "mocha": "^10.0.0",
+    "prettier": "^2.7.1",
+    "ts-mocha": "^10.0.0",
+    "typedoc": "^0.23.18",
+    "typedoc-plugin-markdown": "^3.13.6",
+    "typescript": "^4.8.4"
+  }
+}
