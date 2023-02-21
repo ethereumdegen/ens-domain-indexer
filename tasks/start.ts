@@ -23,6 +23,13 @@ const contractsConfig = require('../config/contracts-config.json')
 
 const localConfig = contractsConfig[networkName]
 
+
+/*
+
+Runs the vibegraph indexer to populate the database with all the events from the config
+
+*/
+
  async function runVibeGraph(){
             
             
