@@ -5,6 +5,19 @@ import { ethers, BigNumber } from 'ethers'
 var namehash = require('@ensdomains/eth-ens-namehash')
 
 
+/*
+
+HOW TO RESOLVE REVERSE 
+
+
+1. append '.addr.reverse' to the address  and namehash that -> thats the node of the reverse association
+2. in the database, look for the 'NameChanged' event that was emitted by the public resolver that has that node 
+3. the name on the record is the answer! 
+
+(on goerli, address 0x171563d880dAe4E7B11e462943073d69e7ED77B3 resolves to must.eth)
+
+*/
+
  async function resolveReverse(){
          
         //for must.eth 
@@ -12,11 +25,7 @@ var namehash = require('@ensdomains/eth-ens-namehash')
 
         let reverseNamespace = `${address.slice(2)}.addr.reverse`
 
-        /*const labelHash = ethers.utils.keccak256(ethers.utils.toUtf8Bytes(name)) //this is 'label'
-        const tokenId = BigNumber.from(labelHash).toString()  //this is 'id'
-
-        console.log({labelHash})
-        console.log({tokenId})*/
+      
 
 
         //what is the node ?  its the namehash
