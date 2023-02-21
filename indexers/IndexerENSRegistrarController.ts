@@ -21,7 +21,7 @@ module.exports =  class IndexerENSRegistrarController extends VibegraphIndexer {
         let eventArgs:any = event.args 
 
 
-        if(event.name=='NameRegistered'){
+        /*if(event.name=='NameRegistered'){
             let registeredName = eventArgs[0]
 
             const labelHash = ethers.utils.keccak256(ethers.utils.toUtf8Bytes(registeredName))
@@ -41,7 +41,33 @@ module.exports =  class IndexerENSRegistrarController extends VibegraphIndexer {
             }
             let created = await EnsDomain.create(newDomain)
     
+        }*/
+
+        if(event.name=='registerWithConfig'){
+            let registeredName = eventArgs[0]
+            const labelHash = ethers.utils.keccak256(ethers.utils.toUtf8Bytes(registeredName))
+            const tokenId = BigNumber.from(labelHash).toString()
+
+            const label = eventArgs[1]
+            const ownerAddress = eventArgs[2]
+            
+    
+            //this works ! 
+             
+    
+            const newDomain:Omit<IEnsDomain,'_id'> = {
+                contractAddress: event.address,
+                tokenId,
+                name: registeredName,
+                label: labelHash,
+                node: namehash.hash(`${registeredName}.eth`),
+                ownerAddress
+              //  resolverAddress: undefined  //?
+            }
+            let created = await EnsDomain.create(newDomain)
+    
         }
+        
        
     }
 

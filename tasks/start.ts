@@ -7,11 +7,13 @@ require('dotenv').config()
 let IndexerENSRegistry = require( '../indexers/IndexerENSRegistry' )
 let IndexerENSRegistrarController = require( '../indexers/IndexerENSRegistrarController' )
 let IndexerENSResolver = require( '../indexers/IndexerENSResolver' )
+let IndexerENSReverseRegistrar = require( '../indexers/IndexerENSReverseRegistrar' )
  
 
 let EnsRegistrarControllerABI = require( '../abi/ENSRegistrarController.json' )
 let EnsRegistryABI = require( '../abi/ENSRegistry.json' )
 let EnsPublicResolverABI = require( '../abi/ENSPublicResolver.json' )
+let EnsReverseResolverABI = require( '../abi/ENSReverseRegistrar.json' )
  
 const networkName = 'goerli'
 
@@ -26,7 +28,8 @@ const localConfig = contractsConfig[networkName]
             
         let indexerENSRegistry = new IndexerENSRegistry()
         let indexerENSRegistrarController = new IndexerENSRegistrarController(  )
-        let indexerENSResolver = new IndexerENSResolver()
+        let indexerENSResolver = new IndexerENSResolver() //not used
+        let indexerENSReverseRegistrar = new IndexerENSReverseRegistrar()
 
         const customIndexers = [{
          type:'EnsRegistry', 
@@ -42,6 +45,11 @@ const localConfig = contractsConfig[networkName]
          type:'EnsPublicResolver', 
          abi: EnsPublicResolverABI ,  
          handler: indexerENSResolver
+      },
+      {
+         type:'EnsReverseRegistrar', 
+         abi: EnsReverseResolverABI ,  
+         handler: indexerENSReverseRegistrar
       }];
 
         

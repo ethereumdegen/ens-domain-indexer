@@ -7,9 +7,10 @@ import { SetEnsResolverEvent } from '../models/tokens/set_ens_resolver_event'
 
 import { ContractEvent } from 'vibegraph'
 import VibegraphIndexer from 'vibegraph/dist/indexers/VibegraphIndexer'
+import { EnsNameChangedEvent } from '../models/tokens/ens_name_changed_event'
  
 
- 
+ //PublicResolver 
 module.exports =  class IndexerENSResolver extends VibegraphIndexer {
    
     async onEventEmitted(event:ContractEvent){
@@ -38,6 +39,24 @@ module.exports =  class IndexerENSResolver extends VibegraphIndexer {
             })
 
 
+        }
+
+        if(event.name=='NameChanged'){
+          console.log('got emitted event ', event )
+
+              /* '0xb5a483dd1a1f1166124a6b382431c5463e446f754e5088a7496150cbe0443147',
+                'tbtest.eth'
+              */
+
+
+          const node = eventArgs[0] //namehash(0x000.addr.reverse)
+          const newName = eventArgs[1]
+
+          let created = await EnsNameChangedEvent.create({
+            node,
+            name:newName,
+            blockNumber
+        })
         }
 
       /*  console.log('got emitted event ', event )

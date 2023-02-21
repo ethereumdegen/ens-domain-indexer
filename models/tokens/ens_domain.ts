@@ -14,6 +14,7 @@ export const EnsDomainSchema = new Schema(
     node: { type:String, required:true, index:true }, //this is 'node' in events
     
     resolverAddress: { type: String },
+    ownerAddress: {type:String},
 
 
     //label 

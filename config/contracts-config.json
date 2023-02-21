@@ -28,20 +28,29 @@
         "contracts":[
             
             {
-             "address":"", 
-             "startBlock": 9380380,
+             "address":"0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e", 
+             "startBlock": 2086611             ,
              "type":"EnsRegistry"
-            } ,
+            },
             {
-            "address":"", 
-            "startBlock": 9380471,
+            "address":"0x283af0b28c62c092c9727f1ee09c02ca627eb7f5", 
+            "startBlock": 2086640            ,
             "type":"EnsRegistrarController"
-            } ,
+            },
+
             {
-            "address":"", 
-            "startBlock": 9380471,
-            "type":"EnsPublicResolver"
-            }              
+                "address":"0x19c2d5d0f035563344dbb7be5fd09c8dad62b001", 
+                "startBlock": 8371673,
+                "type":"EnsPublicResolver"
+            }, 
+            
+            {
+            "address":"0x9a879320A9F7ad2BBb02063d67baF5551D6BD8B0", 
+            "startBlock": 8302607,
+            "type":"EnsReverseRegistrar"
+            }
+            
+            
             ]
     }
 

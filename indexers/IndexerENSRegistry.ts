@@ -18,7 +18,7 @@ module.exports =  class IndexerENSRegistry extends VibegraphIndexer {
         let blockNumber = event.blockNumber
 
 
-        console.log('got emitted event ', event )
+      //  console.log('got emitted event ', event )
 
         if(event.name=='NewResolver'){  
 

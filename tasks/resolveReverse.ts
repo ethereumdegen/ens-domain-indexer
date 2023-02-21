@@ -1,19 +1,14 @@
  
 import { ethers, BigNumber } from 'ethers'
 
-let web3Config = require('../tests/testconfig.json')
-
-  
-let EnsRegistryABI = require( '../config/contracts/ENSRegistrarController.json' )
- 
  
 var namehash = require('@ensdomains/eth-ens-namehash')
 
 
  async function resolveReverse(){
          
-        
-        let address = '0x810E096DDa9ae3Ae2b55a9c45068F9FE8eeea6db'
+        //for must.eth 
+        let address = '0x171563d880dAe4E7B11e462943073d69e7ED77B3'
 
         let reverseNamespace = `${address.slice(2)}.addr.reverse`
 
