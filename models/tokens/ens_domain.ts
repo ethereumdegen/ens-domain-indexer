@@ -1,6 +1,9 @@
 import mongoose, { Schema, Model, InferSchemaType, model, Require_id } from 'mongoose'
  
 
+
+import {getDatabaseName} from '../../lib/app-helper'
+
 export const EnsDomainSchema = new Schema(
   {
     contractAddress: { type: String, required: true, index: true },
@@ -28,9 +31,13 @@ export const EnsDomainSchema = new Schema(
  
 //ContractStateSchema.index({ contractAddress: 1, tokenId: 1 }, { unique: true })
 
+
+const database = mongoose.connection.useDb(getDatabaseName());
+
+
 mongoose.pluralize(null);
 
 export type IEnsDomain = Require_id<
   InferSchemaType<typeof EnsDomainSchema>
 > 
-export const EnsDomain = model<IEnsDomain, Model<IEnsDomain>>('ens_domain', EnsDomainSchema)
+export const EnsDomain = database.model<IEnsDomain, Model<IEnsDomain>>('ens_domain', EnsDomainSchema)

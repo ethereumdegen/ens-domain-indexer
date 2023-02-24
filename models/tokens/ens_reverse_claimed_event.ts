@@ -1,6 +1,9 @@
 import mongoose, { Schema, Model, InferSchemaType, model, Require_id } from 'mongoose'
  
 
+
+import {getDatabaseName} from '../../lib/app-helper'
+
 export const EnsReverseClaimedEventSchema = new Schema(
   {
    
@@ -18,9 +21,13 @@ export const EnsReverseClaimedEventSchema = new Schema(
   } 
 )
   
+
+const database = mongoose.connection.useDb(getDatabaseName());
+
+
 mongoose.pluralize(null);
 
 export type IEnsReverseClaimedEvent = Require_id<
   InferSchemaType<typeof EnsReverseClaimedEventSchema>
 > 
-export const EnsReverseClaimedEvent = model<IEnsReverseClaimedEvent, Model<IEnsReverseClaimedEvent>>('ens_reverse_claimed_event', EnsReverseClaimedEventSchema)
+export const EnsReverseClaimedEvent = database.model<IEnsReverseClaimedEvent, Model<IEnsReverseClaimedEvent>>('ens_reverse_claimed_event', EnsReverseClaimedEventSchema)

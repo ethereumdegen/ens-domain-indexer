@@ -1,5 +1,6 @@
 import mongoose, { Schema, Model, InferSchemaType, model, Require_id } from 'mongoose'
- 
+
+import {getDatabaseName} from '../../lib/app-helper'
 
 export const EnsNewOwnerEventSchema = new Schema(
   {
@@ -18,9 +19,13 @@ export const EnsNewOwnerEventSchema = new Schema(
   } 
 )
   
+
+const database = mongoose.connection.useDb(getDatabaseName());
+
+
 mongoose.pluralize(null);
 
 export type IEnsNewOwnerEvent = Require_id<
   InferSchemaType<typeof EnsNewOwnerEventSchema>
 > 
-export const EnsNewOwnerEvent = model<IEnsNewOwnerEvent, Model<IEnsNewOwnerEvent>>('ens_new_owner_event', EnsNewOwnerEventSchema)
+export const EnsNewOwnerEvent = database.model<IEnsNewOwnerEvent, Model<IEnsNewOwnerEvent>>('ens_new_owner_event', EnsNewOwnerEventSchema)

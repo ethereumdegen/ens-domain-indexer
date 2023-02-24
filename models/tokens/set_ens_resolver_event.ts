@@ -1,6 +1,10 @@
 import mongoose, { Schema, Model, InferSchemaType, model, Require_id } from 'mongoose'
  
 
+
+
+import {getDatabaseName} from '../../lib/app-helper'
+
 export const SetEnsResolverEventSchema = new Schema(
   {
    
@@ -18,9 +22,13 @@ export const SetEnsResolverEventSchema = new Schema(
  
 //ContractStateSchema.index({ contractAddress: 1, tokenId: 1 }, { unique: true })
 
+
+const database = mongoose.connection.useDb(getDatabaseName());
+
+
 mongoose.pluralize(null);
 
 export type ISetEnsResolverEvent = Require_id<
   InferSchemaType<typeof SetEnsResolverEventSchema>
 > 
-export const SetEnsResolverEvent = model<ISetEnsResolverEvent, Model<ISetEnsResolverEvent>>('set_ens_resolver_event', SetEnsResolverEventSchema)
+export const SetEnsResolverEvent = database.model<ISetEnsResolverEvent, Model<ISetEnsResolverEvent>>('set_ens_resolver_event', SetEnsResolverEventSchema)

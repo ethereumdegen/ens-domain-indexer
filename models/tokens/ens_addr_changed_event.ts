@@ -1,6 +1,11 @@
 import mongoose, { Schema, Model, InferSchemaType, model, Require_id } from 'mongoose'
  
 
+
+
+import {getDatabaseName} from '../../lib/app-helper'
+
+
 export const EnsAddrChangedEventSchema = new Schema(
   {
    
@@ -16,9 +21,13 @@ export const EnsAddrChangedEventSchema = new Schema(
   } 
 )
   
+
+const database = mongoose.connection.useDb(getDatabaseName());
+
+
 mongoose.pluralize(null);
 
 export type IEnsAddrChangedEvent = Require_id<
   InferSchemaType<typeof EnsAddrChangedEventSchema>
 > 
-export const EnsAddrChangedEvent = model<IEnsAddrChangedEvent, Model<IEnsAddrChangedEvent>>('ens_addr_changed_event', EnsAddrChangedEventSchema)
+export const EnsAddrChangedEvent = database.model<IEnsAddrChangedEvent, Model<IEnsAddrChangedEvent>>('ens_addr_changed_event', EnsAddrChangedEventSchema)
