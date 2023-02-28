@@ -23,7 +23,7 @@ module.exports =  class IndexerENSResolver extends VibegraphIndexer {
 
         if(event.name=='AddrChanged'){  
 
-             console.log('got emitted event ', event )
+           //  console.log('got emitted event ', event )
 
             const node = eventArgs[0]
             const address = eventArgs[1]
@@ -42,7 +42,7 @@ module.exports =  class IndexerENSResolver extends VibegraphIndexer {
         }
 
         if(event.name=='NameChanged'){
-          console.log('got emitted event ', event )
+         // console.log('got emitted event ', event )
 
               /* '0xb5a483dd1a1f1166124a6b382431c5463e446f754e5088a7496150cbe0443147',
                 'tbtest.eth'

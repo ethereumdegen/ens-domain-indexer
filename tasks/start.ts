@@ -57,7 +57,12 @@ Runs the vibegraph indexer to populate the database with all the events from the
          type:'EnsReverseRegistrar', 
          abi: EnsReverseResolverABI ,  
          handler: indexerENSReverseRegistrar
-      }];
+      
+      
+      }
+   
+   
+   ];
 
         
         let vibegraphConfig:VibegraphConfig = {
