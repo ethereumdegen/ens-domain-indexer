@@ -20,9 +20,13 @@ module.exports =  class IndexerENSRegistrarController extends VibegraphIndexer {
  
         let eventArgs:any = event.args 
 
+        let blockNumber = event.blockNumber
+
 
         if(event.name=='NameRegistered'){
             let registeredName = eventArgs[0]
+            let label = eventArgs[1]
+            let owner = eventArgs[2]
 
             const labelHash = ethers.utils.keccak256(ethers.utils.toUtf8Bytes(registeredName))
             const tokenId = BigNumber.from(labelHash).toString()
@@ -37,7 +41,12 @@ module.exports =  class IndexerENSRegistrarController extends VibegraphIndexer {
                 name: registeredName,
                 label: labelHash,
                 node: namehash.hash(`${registeredName}.eth`),
-              //  resolverAddress: undefined  //?
+                registrant: owner, //owner changed
+                controller: owner,  //addr changed 
+
+                registrantUpdatedAtBlock: blockNumber,
+                controllerUpdatedAtBlock: blockNumber
+          
             }
             let created = await EnsDomain.create(newDomain)
     

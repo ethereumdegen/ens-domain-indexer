@@ -31,6 +31,9 @@ module.exports =  class IndexerENSResolver extends VibegraphIndexer {
 
             //all resolvers MUST TRIGGER THIS EVENT !! this is the key - the secret sauce 
             //event AddrChanged(bytes32 indexed node, address a);
+            
+
+            //this is for forward resolution - sets 'controller'
 
             let created = await EnsAddrChangedEvent.create({
                 node,
