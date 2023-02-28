@@ -16,16 +16,17 @@ export const EnsDomainSchema = new Schema(
     //namehash
     node: { type:String, required:true, index:true }, //this is 'node' in events
     
-    resolverAddress: { type: String },
+    //  resolverAddress: { type: String },
+    address_eth: {type:String},
 
 
     registrant: {type:String},
     controller: {type: String},
 
+    addressEthUpdatedAtBlock: Number,
     registrantUpdatedAtBlock: Number,
     controllerUpdatedAtBlock: Number, 
-    //label 
-    //node 
+    
 
 
   
