@@ -41,6 +41,7 @@ module.exports =  class IndexerENSRegistrarController extends VibegraphIndexer {
             }
             let created = await EnsDomain.create(newDomain)
     
+            console.log({created})
         }
 
       /*  if(event.name=='registerWithConfig'){
