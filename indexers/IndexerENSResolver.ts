@@ -44,6 +44,29 @@ module.exports =  class IndexerENSResolver extends VibegraphIndexer {
 
         }
 
+        if(event.name=='AddressChanged'){  
+
+          //  console.log('got emitted event ', event )
+
+           const node = eventArgs[0]
+           const address = eventArgs[2]
+
+
+           //all resolvers MUST TRIGGER THIS EVENT !! this is the key - the secret sauce 
+           //event AddrChanged(bytes32 indexed node, address a);
+           
+
+           //this is for forward resolution - sets 'controller'
+
+           let created = await EnsAddrChangedEvent.create({
+               node,
+               address,
+               blockNumber
+           })
+
+
+       }
+
         if(event.name=='NameChanged'){
          // console.log('got emitted event ', event )
 
