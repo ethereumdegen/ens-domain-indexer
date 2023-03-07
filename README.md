@@ -22,7 +22,7 @@ ABI - Contains contract ABIs for helping decode raw event logs
 
 Config - Contains the config file for vibegraph which includes contract addresses (for indexing) 
 
-Indexers - Containers the indexer files which are scripts that process emitted events in order to store them into mongoDB as custom records 
+Indexers - Contains the indexer files which are scripts that process emitted events in order to store them into mongoDB as custom records 
 
 Models - Contains the MongoDB model files 
 
