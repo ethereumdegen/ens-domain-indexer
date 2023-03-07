@@ -2,6 +2,12 @@
 Lets index some ENS domains with vibegraph :) 
 
 
+### Env File 
+
+You must populate a new file named '.env' with the parameters listed in '.env.template'.  For example with an Alchemy API or Infura API json rpc connection url. 
+
+
+
 ### How to run the indexer 
 
   yarn install
