@@ -1,5 +1,5 @@
 # ens-domain-indexer
-Lets index some ENS domains with [vibegraph](https://github.com/ethereumdegen/vibegraph) :) 
+Lets locally cache some ENS domains data with [vibegraph](https://github.com/ethereumdegen/vibegraph) :) 
 
 
 ### Env File 
