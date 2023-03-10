@@ -14,10 +14,11 @@ let EnsRegistrarControllerABI = require( '../abi/ENSRegistrarController.json' )
 let EnsRegistryABI = require( '../abi/ENSRegistry.json' )
 let EnsPublicResolverABI = require( '../abi/ENSPublicResolver.json' )
 let EnsReverseResolverABI = require( '../abi/ENSReverseRegistrar.json' )
+let EnsReverseResolverLegacyABI = require( '../abi/ENSReverseRegistrarLegacy.json' )
  
-const networkName = 'goerli'
+const networkName = 'mainnet'
 
-const web3Provider = process.env.GOERLI_PROVIDER_URL!
+const web3Provider = process.env.MAINNET_PROVIDER_URL!
 
 const contractsConfig = require('../config/contracts-config.json')
 
@@ -37,6 +38,7 @@ Runs the vibegraph indexer to populate the database with all the events from the
         let indexerENSRegistrarController = new IndexerENSRegistrarController(  )
         let indexerENSResolver = new IndexerENSResolver() //not used
         let indexerENSReverseRegistrar = new IndexerENSReverseRegistrar()
+        let indexerENSReverseRegistrarLegacy = new IndexerENSReverseRegistrarLegacy()
 
         const customIndexers = [{
          type:'EnsRegistry', 
@@ -57,6 +59,13 @@ Runs the vibegraph indexer to populate the database with all the events from the
          type:'EnsReverseRegistrar', 
          abi: EnsReverseResolverABI ,  
          handler: indexerENSReverseRegistrar
+      
+      
+      }, 
+       {
+         type:'EnsReverseRegistrarLegacy', 
+         abi: EnsReverseResolverLegacyABI ,  
+         handler: indexerENSReverseRegistrarLegacy
       
       
       }

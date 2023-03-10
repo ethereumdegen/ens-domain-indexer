@@ -37,11 +37,12 @@ module.exports =  class IndexerENSRegistry extends VibegraphIndexer {
         }
 
         if(event.name=='NewOwner'){  
- 
+            
+            console.log('new owner event', {event} )
 
          const node = eventArgs[0]
          const label = eventArgs[1]
-         const address = eventArgs[2]
+         const address = eventArgs[2]  //owner
 
          let created = await EnsNewOwnerEvent.create({
              node,
