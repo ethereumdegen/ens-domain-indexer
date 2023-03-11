@@ -4,6 +4,7 @@ require('dotenv').config()
 const NODE_ENV = process.env.NODE_ENV
 type VALID_ENVIRONMENT_NAMES = 'development' | 'staging' | 'production' | 'test'
 
+const MONGO_CONNECT_URI = process.env.MONGO_URI
 
 
 export function getAppName() : string {
@@ -31,3 +32,11 @@ export function getDatabaseName() : string {
     return getAppName().concat('_').concat(getEnvironmentName())
   }
 
+
+
+  export function getDatabaseConnectURI(): string {
+    if (!MONGO_CONNECT_URI) throw new Error('Missing ENV variable: MONGO_URI')
+  
+    return MONGO_CONNECT_URI
+  }
+  

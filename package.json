@@ -8,15 +8,21 @@
     "test": "NODE_ENV=TEST ts-mocha -p tsconfig.testing.json 'test/**/*.spec.ts' --timeout 10000",
     "start": "yarn ts-node tasks/start.ts",
     "resolve": "yarn ts-node tasks/resolve.ts",
-    "resolveReverse": "yarn ts-node tasks/resolveReverse.ts"
+    "resolveReverse": "yarn ts-node tasks/resolveReverse.ts",
+    "services": "ts-node ./node_modules/.bin/moleculer-runner services/**/*.service.ts --hot --repl --env --config moleculer.config.ts"
   },
   "author": "apexmfer",
   "license": "MIT",
   "dependencies": {
     "@ensdomains/eth-ens-namehash": "^2.0.15",
+    "@moleculer/lab": "^0.6.4",
     "dotenv": "^16.0.3",
+    "moleculer": "^0.14.28",
+    "moleculer-cron": "^0.0.2",
+    "moleculer-db": "^0.8.23",
+    "moleculer-db-adapter-mongoose": "^0.9.2",
     "mongoose": "^6.9.1",
-    "vibegraph": "^0.40.1"
+    "vibegraph": "^0.41.2"
   },
   "devDependencies": {
     "@types/chai": "^4.3.3",
@@ -36,9 +42,9 @@
     "mocha": "^10.0.0",
     "prettier": "^2.7.1",
     "ts-mocha": "^10.0.0",
+    "ts-node": "^10.8.1",
     "typedoc": "^0.23.18",
     "typedoc-plugin-markdown": "^3.13.6",
-    "typescript": "^4.6.4",
-    "ts-node": "^10.8.1"
+    "typescript": "^4.6.4"
   }
 }
