@@ -40,3 +40,11 @@ export function getDatabaseName() : string {
     return MONGO_CONNECT_URI
   }
   
+
+export function getNetworkNameFromChainId(chainId: number): string {
+  if (chainId == 4) return 'rinkeby'
+  if (chainId == 5) return 'goerli'
+  if (chainId == 137) return 'polygon'
+
+  return 'mainnet'
+}

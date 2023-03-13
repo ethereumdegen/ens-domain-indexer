@@ -16,6 +16,7 @@ module.exports =  class IndexerENSRegistry extends VibegraphIndexer {
  
         let eventArgs:any = event.args 
         let blockNumber = event.blockNumber
+        let txHash = event.transactionHash
 
 
       //  console.log('got emitted event ', event )
@@ -38,7 +39,7 @@ module.exports =  class IndexerENSRegistry extends VibegraphIndexer {
 
         if(event.name=='NewOwner'){  
             
-            console.log('new owner event', {event} )
+          //  console.log('new owner event', {event} )
 
          const node = eventArgs[0]
          const label = eventArgs[1]
@@ -48,6 +49,7 @@ module.exports =  class IndexerENSRegistry extends VibegraphIndexer {
              node,
              label,
              address,
+             txHash,
              blockNumber
          })
 

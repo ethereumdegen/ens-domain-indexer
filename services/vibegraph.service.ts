@@ -1,42 +1,34 @@
 import { LoggerInstance, Service, ServiceBroker } from 'moleculer'
 
-import AppHelper, {
+import   {
     getDatabaseConnectURI,
     getEnvironmentName,
-  getNetworkNameFromChainId,
-  getRpcUrl,
+    getNetworkNameFromChainId,
+  
 } from '../lib/app-helper'
 
 
 
 import Vibegraph, { VibegraphConfig } from 'vibegraph'
 
-
-//import Vibegraph, { VibegraphConfig , VibeConfigBlock} from 'vibegraph'
  
-
-const contractsConfig = require('./vibegraph/contracts-config.json')
 
  
 
-let IndexerENSRegistry = require( './vibegraph/indexers/IndexerENSRegistry' )
-let IndexerENSRegistrarController = require( './vibegraph/indexers/IndexerENSRegistrarController' )
-let IndexerENSResolver = require( './vibegraph/indexers/IndexerENSResolver' )
-let IndexerENSReverseRegistrar = require( './vibegraph/indexers/IndexerENSReverseRegistrar' )
- 
+let IndexerENSRegistry = require( '../indexers/IndexerENSRegistry' )
+let IndexerENSRegistrarController = require( '../indexers/IndexerENSRegistrarController' )
+let IndexerENSResolver = require( '../indexers/IndexerENSResolver' )
+let IndexerENSReverseRegistrar = require( '../indexers/IndexerENSReverseRegistrar' )
+let IndexerENSReverseRegistrarLegacy =require( '../indexers/IndexerENSReverseRegistrarLegacy' )
 
-let EnsRegistrarControllerABI = require( './vibegraph/abi/ENSRegistrarController.json' )
-let EnsRegistryABI = require( './vibegraph/abi/ENSRegistry.json' )
-let EnsPublicResolverABI = require( './vibegraph/abi/ENSPublicResolver.json' )
-let EnsReverseResolverABI = require( './vibegraph/abi/ENSReverseRegistrar.json' )
+let EnsRegistrarControllerABI = require( '../abi/ENSRegistrarController.json' )
+let EnsRegistryABI = require( '../abi/ENSRegistry.json' )
+let EnsPublicResolverABI = require( '../abi/ENSPublicResolver.json' )
+let EnsReverseResolverABI = require( '../abi/ENSReverseRegistrar.json' )
  
-
+let EnsReverseResolverLegacyABI = require( '../abi/ENSReverseRegistrarLegacy.json' )
 
 const Cron = require('moleculer-cron') 
-
-const NODE_ENVIRONMENT =  getEnvironmentName()
-
-const MONGO_URI = getDatabaseConnectURI()
 
 
 
@@ -45,6 +37,7 @@ let indexerENSRegistry = new IndexerENSRegistry()
 let indexerENSRegistrarController = new IndexerENSRegistrarController(  )
 let indexerENSResolver = new IndexerENSResolver() //not used
 let indexerENSReverseRegistrar = new IndexerENSReverseRegistrar()
+let indexerENSReverseRegistrarLegacy = new IndexerENSReverseRegistrarLegacy()
 
 const customIndexers = [{
  type:'EnsRegistry', 
@@ -67,6 +60,13 @@ const customIndexers = [{
  handler: indexerENSReverseRegistrar
 
 
+}, 
+{
+  type:'EnsReverseRegistrarLegacy', 
+  abi: EnsReverseResolverLegacyABI ,  
+  handler: indexerENSReverseRegistrarLegacy
+
+
 }
 
 
@@ -75,11 +75,22 @@ const customIndexers = [{
 
 
 
-export interface CollectionConfigRow {
-  contractAddress: string
-  name: string
-  openseaSlug: string
-}
+const NODE_ENVIRONMENT =  getEnvironmentName()
+
+const MONGO_URI = getDatabaseConnectURI()
+
+
+
+const networkName = 'mainnet'
+
+const chainId: number = 1  
+
+const web3Provider = process.env.MAINNET_PROVIDER_URL!
+
+const contractsConfig = require('../config/contracts-config.json')
+
+    
+
 
 export default class VibegraphService extends Service {
   public constructor(public broker: ServiceBroker) {
@@ -124,33 +135,30 @@ export async function getVibegraphConfig(): Promise<any> {
 
  
 
-  const chainId: number = 5 //localConfig.chainId
 
   if (!chainId) throw new Error('Vibegraph: Undefined chainId')
   const networkName = getNetworkNameFromChainId(chainId)
 
 
   const localConfig = contractsConfig[networkName]
+ 
 
-  const web3ProviderUri = getRpcUrl(networkName)
 
-  if(!web3ProviderUri) throw new Error('Undefined web3 provider uri')
-
-  const vibeGraphConfig:VibegraphConfig = {
+  let vibegraphConfig:VibegraphConfig = {
     contracts: localConfig.contracts,
-    dbName: VIBE_DB_NAME.concat('_').concat(NODE_ENVIRONMENT),
-    indexRate: 1 * 1000, // one second
-    fineBlockGap: localConfig.fineBlockGap? localConfig.fineBlockGap:1000,
-    courseBlockGap: localConfig.courseBlockGap?localConfig.courseBlockGap:8000,
-    logLevel:'debug',
-    subscribe:false, 
+     
+    dbName: `${VIBE_DB_NAME}_${NODE_ENVIRONMENT}`,
+    indexRate: 1*1000,
+    courseBlockGap: 8000,
     updateBlockNumberRate: 60*1000,
+    fineBlockGap: 20,
+    logLevel:'debug',
+    subscribe: false, 
     customIndexers,
-    web3ProviderUri,
-   // mongoConnectURI: MONGO_URI,
-  }
+    web3ProviderUri: web3Provider
+}
 
-  return vibeGraphConfig
+  return vibegraphConfig
 }
 
 export async function buildVibegraph(

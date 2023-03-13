@@ -11,6 +11,8 @@ import { AssertionResult } from '../interfaces/types'
  import {ethers} from 'ethers'
 
 import { isAssertionSuccess } from '../lib/assertion-helper'
+import { IEnsLegacyReverseRecordSet } from '../models/tokens/ens_legacy_reverse_record_set'
+import { env } from 'process'
 
 const Cron = require('moleculer-cron')
 
@@ -30,7 +32,7 @@ export default class SeedLegacyReverseRecordTransactionsService extends Service 
  
     this.parseServiceSchema({
       name: 'seedlegacyreverserecordtransactions',
-      dependencies: ['new_owner_vibegraph','legacy_reverse_record_tx'],
+      dependencies: ['new_owner_vibegraph','legacy_reverse_record_set'],
       mixins: [Cron],
       crons: [
         {
@@ -62,9 +64,9 @@ export default class SeedLegacyReverseRecordTransactionsService extends Service 
             )
  
 
- 
+            const legacyReverseRegistrar = {address: "0x084b1c3C81545d370f3634392De611CaaBFf8148"}
 
-           const recordQuery:any  = cursorId ? { _id: { $gt: cursorId } } : {} 
+           const recordQuery:any  = cursorId ? { _id: { $gt: cursorId }, address: legacyReverseRegistrar.address   } : {  address: legacyReverseRegistrar.address } 
            
            const newOwnerEvents:any[] = await this.broker.call('new_owner_vibegraph.find',{
             query:recordQuery,
@@ -72,47 +74,27 @@ export default class SeedLegacyReverseRecordTransactionsService extends Service 
             limit: PAGE_SIZE
            }) 
 
-           console.log({newOwnerEvents})
+          console.log({newOwnerEvents})
 
         /*    this.logger.info(
               `Reverse records imported ${importedReverseRecords}`
             ) */
 
-            const legacyReverseRegistrar = {address: "0x084b1c3C81545d370f3634392De611CaaBFf8148"}
+        
+               
+           for(let evt of newOwnerEvents){
 
-           const setOwnerToLegacyReverseRegistrarEvents = newOwnerEvents.filter( (e:any) => {
+            await this.addReverseRecordSetFromEvent( evt, {broker:this.broker} )
 
-             ethers.utils.getAddress(e.address) == legacyReverseRegistrar.address
+         
+          }
 
-           } )
+
            
-           console.log({setOwnerToLegacyReverseRegistrarEvents})
-
-           /* const reverseRecords = setOwnerToLegacyReverseRegistrarEvents.map( (d:any) => {
-
-              return {
-                name: d.name,
-              
-              //  address: d.address, 
-                node: d.node,
-                blockNumber: d.blockNumber, 
-                
-              }
-            } )
-
-
-            
-           for(let reverseRecord of reverseRecords){
-
-             await this.addReverseRecordFromEvent( reverseRecord, {broker:this.broker} )
-
-          
-           }
-            
 
 
             //increment the cursor 
-            const lastImportRecord:any = importedReverseRecords[importedReverseRecords.length - 1]
+            const lastImportRecord:any = newOwnerEvents[newOwnerEvents.length - 1]
 
 
             if (lastImportRecord) {
@@ -126,12 +108,12 @@ export default class SeedLegacyReverseRecordTransactionsService extends Service 
               cursorId = undefined
             }
 
-            if(importedReverseRecords.length == 0){
+            if(newOwnerEvents.length == 0){
               //reset back to the start
               await cursorState.updateOne({ $unset: { value: 1 } })
               cursorId = undefined
             }
-            */
+            
         
 
           },
@@ -142,17 +124,34 @@ export default class SeedLegacyReverseRecordTransactionsService extends Service 
   }
 
 
+  /*
+  this works ! but tx hash is null. make sure that is brought in
 
-  async addReverseRecordFromEvent(reverseRecord: any, config: {broker: ServiceBroker} ){
- 
+  then build a NEW service that looops thru these and hits quiknode to find FROM and update it on 
+
+  */
+
+  async addReverseRecordSetFromEvent(evt: any, config: {broker: ServiceBroker} ){
+    
+
+    let legacyReverseRecordSet:Omit<IEnsLegacyReverseRecordSet,'_id'>= {
+      node: evt.node,
+      txHash: evt.txHash,
+      //address: evt.from,  
+
+      blockNumber: evt.blockNumber,
+      lastUpdated: Date.now() 
+
+    }
 
     //update the record if it has a lesser blockNumber, otherwise try to insert (will fail if node exists) 
-    const upserted = await config.broker.call('reverse_record_primary.upsertOne',
+    const upserted = await config.broker.call('legacy_reverse_record_set.upsertOne',
     {query:{
-      node:reverseRecord.node,
-     blockNumber: {$lt: reverseRecord.blockNumber }
+     // node:evt.node,
+      txHash: evt.txHash,
+     // blockNumber: {$lt: evt.blockNumber }
     } ,
-    set:reverseRecord
+    set: legacyReverseRecordSet
   }) 
  
 

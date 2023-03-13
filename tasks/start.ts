@@ -8,6 +8,7 @@ let IndexerENSRegistry = require( '../indexers/IndexerENSRegistry' )
 let IndexerENSRegistrarController = require( '../indexers/IndexerENSRegistrarController' )
 let IndexerENSResolver = require( '../indexers/IndexerENSResolver' )
 let IndexerENSReverseRegistrar = require( '../indexers/IndexerENSReverseRegistrar' )
+let IndexerENSReverseRegistrarLegacy = require( '../indexers/IndexerENSReverseRegistrarLegacy' )
  
 
 let EnsRegistrarControllerABI = require( '../abi/ENSRegistrarController.json' )

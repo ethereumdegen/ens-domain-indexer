@@ -18,13 +18,20 @@ describe('Full Node Module', () => {
 
 
     it('should fetch transaction data', async () => {
- 
-      let fetched = await getTransactionByHash('0x783183d8be60f0fede7caf30f4b803f586e31fc2bba098e2e2bd89f9dad801f5')
+        
+
+        const txhash = '0x81f56e84c48725783290d75b28ccf1bd406702844346fe429756348b21a73a1c'
+
+      let fetched = await getTransactionByHash( txhash )
 
       console.log({fetched})
 
       expect(fetched.status).to.eql(200) 
       expect(fetched.data).to.exist
+
+      console.log(fetched.data.result)
+      
+      //grab from address !  pair with NODE of the new owner event 
     
     })
  

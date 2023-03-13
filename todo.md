@@ -1,6 +1,12 @@
 
 
+ 
 
-See recent events 
+resolve ens in reverse using api ..  use it for 0xjpegs 
 
-https://goerli.etherscan.io/tx/0xf9097bd54550464c5ed46bfe7fa674acf4a592bed7ea979b464d762954ba335c#eventlog
+1.  find events where new_owner was set on the ENS Registry where the address is  legacyReverseRegistrar 
+0x084b1c3C81545d370f3634392De611CaaBFf8148
+
+
+ex. 
+https://etherscan.io/tx/0x81f56e84c48725783290d75b28ccf1bd406702844346fe429756348b21a73a1c#eventlog
