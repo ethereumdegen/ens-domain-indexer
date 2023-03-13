@@ -16,6 +16,7 @@
   "dependencies": {
     "@ensdomains/eth-ens-namehash": "^2.0.15",
     "@moleculer/lab": "^0.6.4",
+    "axios": "^1.3.4",
     "dotenv": "^16.0.3",
     "moleculer": "^0.14.28",
     "moleculer-cron": "^0.0.2",
