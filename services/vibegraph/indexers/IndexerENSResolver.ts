@@ -1,13 +1,11 @@
 
 //const VibegraphIndexer = require('./VibegraphIndexer')
  import { ethers, BigNumber } from 'ethers'
-import { EnsAddrChangedEvent } from '../models/tokens/ens_addr_changed_event'
-import { EnsDomain, IEnsDomain } from '../models/tokens/ens_domain'
-import { SetEnsResolverEvent } from '../models/tokens/set_ens_resolver_event'
-
+import { EnsAddrChangedEvent } from '../../../models/tokens/ens_addr_changed_event'
+ 
 import { ContractEvent } from 'vibegraph'
 import VibegraphIndexer from 'vibegraph/dist/indexers/VibegraphIndexer'
-import { EnsNameChangedEvent } from '../models/tokens/ens_name_changed_event'
+import { EnsNameChangedEvent } from '../../../models/tokens/ens_name_changed_event'
  
 
  //PublicResolver 

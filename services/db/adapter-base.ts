@@ -36,32 +36,22 @@ export default abstract class DbAdapterBase extends Service {
       actions: {
 
         async insertOne(args: ServiceBrokerArgs) {
-          let insertedCount = 0
-          let inserted
+         
+          let created
 
           let element = args.params
 
-          console.log({element})
+          console.log('inserting ',{element})
           try {
-            inserted = await Model.insertMany([element])
-            insertedCount = inserted.length
+            created = await Model.create(element)
+         
           } catch (error:any) {
-          //  if (error instanceof MongoBulkWriteError) {
-              insertedCount = error.insertedCount
-              //if (error.code === 11000) {
-                // Duplicate key
+       
                 this.logger.error(error.errmsg)
-             // }
-         //   }
+            return error 
           }
-          if (insertedCount > 0) {
-            this.logger.info(
-              `Added ${insertedCount} ${serviceName} to the database.`
-            )
-
-          
-          }
-          return inserted
+        
+          return created
         },
 
 
@@ -102,20 +92,19 @@ export default abstract class DbAdapterBase extends Service {
           const query = args.params.query 
           const set = args.params.set
 
+          console.log({query,set})
           
-          try {
-            
+          try { 
             updated = await Model.updateOne(
               query,{$set:set})
             
+            return updated
           } catch (error:any) {           
-                this.logger.error(error)            
+            this.logger.error(error)     
+            
+            return error 
           }
-        /*  if (updated) {
-            this.logger.info(
-              `Updated record for ${serviceName} .`
-            )
-          }*/
+         
         
           
         },

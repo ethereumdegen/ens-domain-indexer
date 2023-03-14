@@ -1,7 +1,7 @@
 
 //const VibegraphIndexer = require('./VibegraphIndexer')
  import { ethers, BigNumber } from 'ethers'
-import { EnsDomain, IEnsDomain } from '../models/tokens/ens_domain'
+import { EnsDomain, IEnsDomain } from '../../../models/tokens/ens_domain'
 
 import { ContractEvent } from 'vibegraph'
 import VibegraphIndexer from 'vibegraph/dist/indexers/VibegraphIndexer'

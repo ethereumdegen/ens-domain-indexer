@@ -22,8 +22,7 @@ export async function getTransactionByHash(txhash:string){
             id: 0,
           }),
       });
-
-
-    return response
+ 
+    return response 
 }
  

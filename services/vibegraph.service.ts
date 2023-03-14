@@ -1,6 +1,6 @@
 import { LoggerInstance, Service, ServiceBroker } from 'moleculer'
 
-import   {
+import  {
     getDatabaseConnectURI,
     getEnvironmentName,
     getNetworkNameFromChainId,
@@ -15,18 +15,18 @@ import Vibegraph, { VibegraphConfig } from 'vibegraph'
 
  
 
-let IndexerENSRegistry = require( '../indexers/IndexerENSRegistry' )
-let IndexerENSRegistrarController = require( '../indexers/IndexerENSRegistrarController' )
-let IndexerENSResolver = require( '../indexers/IndexerENSResolver' )
-let IndexerENSReverseRegistrar = require( '../indexers/IndexerENSReverseRegistrar' )
-let IndexerENSReverseRegistrarLegacy =require( '../indexers/IndexerENSReverseRegistrarLegacy' )
+let IndexerENSRegistry = require( './vibegraph/indexers/IndexerENSRegistry' )
+let IndexerENSRegistrarController = require( './vibegraph/indexers/IndexerENSRegistrarController' )
+let IndexerENSResolver = require( './vibegraph/indexers/IndexerENSResolver' )
+let IndexerENSReverseRegistrar = require( './vibegraph/indexers/IndexerENSReverseRegistrar' )
+let IndexerENSReverseRegistrarLegacy =require( './vibegraph/indexers/IndexerENSReverseRegistrarLegacy' )
 
-let EnsRegistrarControllerABI = require( '../abi/ENSRegistrarController.json' )
-let EnsRegistryABI = require( '../abi/ENSRegistry.json' )
-let EnsPublicResolverABI = require( '../abi/ENSPublicResolver.json' )
-let EnsReverseResolverABI = require( '../abi/ENSReverseRegistrar.json' )
+let EnsRegistrarControllerABI = require( './vibegraph/abi/ENSRegistrarController.json' )
+let EnsRegistryABI = require( './vibegraph/abi/ENSRegistry.json' )
+let EnsPublicResolverABI = require( './vibegraph/abi/ENSPublicResolver.json' )
+let EnsReverseResolverABI = require( './vibegraph/abi/ENSReverseRegistrar.json' )
  
-let EnsReverseResolverLegacyABI = require( '../abi/ENSReverseRegistrarLegacy.json' )
+let EnsReverseResolverLegacyABI = require( './vibegraph/abi/ENSReverseRegistrarLegacy.json' )
 
 const Cron = require('moleculer-cron') 
 
@@ -71,23 +71,19 @@ const customIndexers = [{
 
 
 ];
-
-
-
+ 
 
 const NODE_ENVIRONMENT =  getEnvironmentName()
 
 const MONGO_URI = getDatabaseConnectURI()
 
-
-
-const networkName = 'mainnet'
+ 
 
 const chainId: number = 1  
 
 const web3Provider = process.env.MAINNET_PROVIDER_URL!
 
-const contractsConfig = require('../config/contracts-config.json')
+const contractsConfig = require('./vibegraph/contracts-config.json')
 
     
 

@@ -1,9 +1,9 @@
 
 //const VibegraphIndexer = require('./VibegraphIndexer')
  import { ethers, BigNumber } from 'ethers'
-import { EnsDomain, IEnsDomain } from '../models/tokens/ens_domain'
-import { EnsNewOwnerEvent } from '../models/tokens/ens_new_owner_event'
-import { SetEnsResolverEvent } from '../models/tokens/set_ens_resolver_event'
+import { EnsDomain, IEnsDomain } from '../../../models/tokens/ens_domain'
+import { EnsNewOwnerEvent } from '../../../models/tokens/ens_new_owner_event'
+import { SetEnsResolverEvent } from '../../../models/tokens/set_ens_resolver_event'
 
 import { ContractEvent } from 'vibegraph'
 import VibegraphIndexer from 'vibegraph/dist/indexers/VibegraphIndexer'
@@ -16,8 +16,7 @@ module.exports =  class IndexerENSRegistry extends VibegraphIndexer {
  
         let eventArgs:any = event.args 
         let blockNumber = event.blockNumber
-        let txHash = event.transactionHash
-
+        let transactionHash = event.transactionHash
 
       //  console.log('got emitted event ', event )
 
@@ -31,7 +30,8 @@ module.exports =  class IndexerENSRegistry extends VibegraphIndexer {
             let created = await SetEnsResolverEvent.create({
                 node,
                 resolverAddress,
-                blockNumber
+                blockNumber,
+                transactionHash
             })
 
 
@@ -49,8 +49,8 @@ module.exports =  class IndexerENSRegistry extends VibegraphIndexer {
              node,
              label,
              address,
-             txHash,
-             blockNumber
+             blockNumber,
+             transactionHash
          })
 
 
