@@ -15,8 +15,7 @@ https://eips.ethereum.org/EIPS/eip-137#namehash-algorithm
 module.exports =  class IndexerENSRegistrarController extends VibegraphIndexer {
    
     async onEventEmitted(event:ContractEvent){
-
-        console.log('got emitted event ', event )
+ 
  
         let eventArgs:any = event.args 
 
@@ -30,9 +29,7 @@ module.exports =  class IndexerENSRegistrarController extends VibegraphIndexer {
 
             const labelHash = ethers.utils.keccak256(ethers.utils.toUtf8Bytes(registeredName))
             const tokenId = BigNumber.from(labelHash).toString()
-            
-    
-            //this works ! 
+             
              
     
             const newDomain:Omit<IEnsDomain,'_id'> = {
@@ -50,7 +47,7 @@ module.exports =  class IndexerENSRegistrarController extends VibegraphIndexer {
             }
             let created = await EnsDomain.create(newDomain)
     
-            console.log({created})
+             
         }
 
       /*  if(event.name=='registerWithConfig'){

@@ -17,8 +17,7 @@ module.exports =  class IndexerENSReverseRegistrar extends VibegraphIndexer {
 
 
         if(event.name=='ReverseClaimed'){  
-
-          //   console.log('got emitted event ', event )
+ 
 
             const address = eventArgs[0]
             const node = eventArgs[1] //the namehash of the ens domain 
