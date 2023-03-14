@@ -26,24 +26,24 @@ Loop through the vibegraph data from the beginning up to head.. sorted by blockN
 let cursorId: string | undefined = undefined
 const PAGE_SIZE = 50 
 
-export default class SeedLegacyReverseRecordTransactionsService extends Service {
+export default class PopulateFromForLegacyReverseRecordTransactionsService extends Service {
   public constructor(public broker: ServiceBroker) {
     super(broker)
  
     this.parseServiceSchema({
-      name: 'seedlegacyreverserecordtransactions',
-      dependencies: ['new_owner_vibegraph','legacy_reverse_record_set'],
+      name: 'populatefromforlegacyreverserecordtransactions',
+      dependencies: [ 'legacy_reverse_record_set'],
       mixins: [Cron],
       crons: [
         {
-          name: 'seed-legacy-reverse-record-transactions',
+          name: 'populate-from-for-legacy-reverse-record-transactions',
           cronTime: '*/2 * * * * *', // every 2 seconds
 
           onTick: async () => {
  
             
 
-            const cursorStateKey = 'seed-legacy-reverse-record-transactions.cursor'
+            const cursorStateKey = 'populate-from-for-legacy-reverse-record-transactions.cursor'
 
             //find one or create 
             let cursorState = await SyncState.findOne({ key: cursorStateKey })
@@ -63,26 +63,32 @@ export default class SeedLegacyReverseRecordTransactionsService extends Service 
               `Finding legacy reverse record transactions with cursor ${cursorId}`
             )
  
-
  
-            const legacyReverseRegistrar = {address: "0x084b1c3C81545d370f3634392De611CaaBFf8148"}
-
-           const recordQuery:any  = cursorId ? { _id: { $gt: cursorId } , address: legacyReverseRegistrar.address} : {address: legacyReverseRegistrar.address} 
+           const recordQuery:any  = cursorId ? { _id: { $gt: cursorId } , from:{$exists:false} } : {from:{$exists:false}} 
            
-           const newOwnerEventsFiltered:any[] = await this.broker.call('new_owner_vibegraph.find',{
+           const legacyRecordsFiltered:any[] = await this.broker.call('legacy_reverse_record_set.find',{
             query:recordQuery,
             sortBy: { '_id': 1 },
             limit: PAGE_SIZE
            }) 
 
        
-           for(let event of newOwnerEventsFiltered){
+           for(let record of legacyRecordsFiltered){
+
+            //find the FROM field 
+            const from = await fetchTransactionFromField(  record.txHash )
+
+            const updated:any = await this.broker.call('legacy_reverse_record_set.updateOne',
+              { query:{ txHash:  record.txHash } , set:{ from }  }
+             )
+
+
             let created = await this.addReverseRecordFromEvent(event,{broker:this.broker});
            }
  
  
             //increment the cursor 
-            const lastImportRecord:any = newOwnerEventsFiltered[newOwnerEventsFiltered.length - 1]
+            const lastImportRecord:any = legacyRecordsFiltered[legacyRecordsFiltered.length - 1]
 
 
             if (lastImportRecord) {
@@ -96,7 +102,7 @@ export default class SeedLegacyReverseRecordTransactionsService extends Service 
               cursorId = undefined
             }
 
-            if(newOwnerEventsFiltered.length == 0){
+            if(legacyRecordsFiltered.length == 0){
               //reset back to the start
               await cursorState.updateOne({ $unset: { value: 1 } })
               cursorId = undefined
@@ -113,24 +119,9 @@ export default class SeedLegacyReverseRecordTransactionsService extends Service 
 
 
 
-  async addReverseRecordFromEvent(evt: IEnsNewOwnerEvent, config: {broker: ServiceBroker} ){
+  async fetchTransactionFromField( tsHash:string  ){
 
-    let reverse_record_params:Omit<ILegacyReverseRecordSet,'_id'>= {
-      node:evt.node,
-      txHash:evt.transactionHash,
-     // from: undefined ,
-      blockNumber: evt.blockNumber,
-      lastUpdated: Date.now()
-    }
- 
- 
-    const insert:any = await config.broker.call('legacy_reverse_record_set.insertOne',
-  
-      reverse_record_params
-     )
- 
-
-   // console.log({upserted})
+    let txData = await 
 
   }
 }
