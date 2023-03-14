@@ -1,13 +1,10 @@
 
  
  import { ethers, BigNumber } from 'ethers'
-import { EnsAddrChangedEvent } from '../models/tokens/ens_addr_changed_event'
-import { EnsDomain, IEnsDomain } from '../models/tokens/ens_domain'
-import { SetEnsResolverEvent } from '../models/tokens/set_ens_resolver_event'
-
+ 
 import { ContractEvent } from 'vibegraph'
 import VibegraphIndexer from 'vibegraph/dist/indexers/VibegraphIndexer'
-import { EnsReverseClaimedEvent } from '../models/tokens/ens_reverse_claimed_event'
+import { EnsReverseClaimedEvent } from '../../../models/tokens/ens_reverse_claimed_event'
  
 
  

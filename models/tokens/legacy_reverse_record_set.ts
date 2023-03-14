@@ -4,7 +4,7 @@ import mongoose, { Schema, Model, InferSchemaType, model, Require_id } from 'mon
 
 import {getDatabaseName} from '../../lib/app-helper'
 
-export const LegacyReverseRecordTransactionSchema = new Schema(
+export const LegacyReverseRecordSetSchema = new Schema(
   {
    
     //namehash
@@ -12,7 +12,7 @@ export const LegacyReverseRecordTransactionSchema = new Schema(
     
     txHash:  { type:String, required:true, index:true },
 
-    from: { type: String, required: true },
+    from: { type: String  },
 
     blockNumber: { type: String, required: true, index:true },
 
@@ -27,7 +27,7 @@ const database = mongoose.connection.useDb(getDatabaseName());
 
 mongoose.pluralize(null);
 
-export type ILegacyReverseRecordTransaction = Require_id<
-  InferSchemaType<typeof LegacyReverseRecordTransactionSchema>
+export type ILegacyReverseRecordSet = Require_id<
+  InferSchemaType<typeof LegacyReverseRecordSetSchema>
 > 
-export const LegacyReverseRecordTransaction = database.model<ILegacyReverseRecordTransaction, Model<ILegacyReverseRecordTransaction>>('legacy_reverse_record_transaction', LegacyReverseRecordTransactionSchema)
+export const LegacyReverseRecordSet = database.model<ILegacyReverseRecordSet, Model<ILegacyReverseRecordSet>>('legacy_reverse_record_set', LegacyReverseRecordSetSchema)

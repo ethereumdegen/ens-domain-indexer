@@ -12,7 +12,8 @@ export const EnsNewOwnerEventSchema = new Schema(
 
     address: { type: String, required: true },
 
-    blockNumber: { type: String, required: true, index:true },
+    blockNumber: { type: String, required: true},
+    transactionHash: { type: String, required: true },
  
   
     lastUpdated: Number

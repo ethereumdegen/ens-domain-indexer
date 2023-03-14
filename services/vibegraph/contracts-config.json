@@ -18,13 +18,17 @@
             "address":"0x4976fb03c32e5b8cfe2b6ccb31c09ba78ebaba41", 
             "startBlock": 9380471,
             "type":"EnsPublicResolver"
-            }  ,
+            }  
+                     
+            ],
+
+        "unused_contracts":[
             {
-            "address":"0x084b1c3C81545d370f3634392De611CaaBFf8148", 
-            "startBlock":  9380506,
-            "type":"EnsReverseRegistrarLegacy"
-            }               
-            ]
+                "address":"0x084b1c3C81545d370f3634392De611CaaBFf8148", 
+                "startBlock":  9380506,
+                "type":"EnsReverseRegistrarLegacy"
+                }     
+        ]
 
     },
 

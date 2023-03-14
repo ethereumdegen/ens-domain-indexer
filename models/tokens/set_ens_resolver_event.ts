@@ -14,6 +14,7 @@ export const SetEnsResolverEventSchema = new Schema(
     resolverAddress: { type: String, required: true },
 
     blockNumber: { type: String, required: true, index:true },
+    transactionHash: { type: String, required: true },
  
   
     lastUpdated: Number

@@ -1,6 +1,6 @@
 import { LoggerInstance, Service, ServiceBroker } from 'moleculer'
 
-import AppHelper, {
+import  {
     getDatabaseConnectURI,
     getEnvironmentName,
   getNetworkNameFromChainId,
@@ -74,6 +74,8 @@ const customIndexers = [{
 
 
 
+const chainId: number = 1  
+
 
 export interface CollectionConfigRow {
   contractAddress: string
@@ -124,7 +126,6 @@ export async function getVibegraphConfig(): Promise<any> {
 
  
 
-  const chainId: number = 5 //localConfig.chainId
 
   if (!chainId) throw new Error('Vibegraph: Undefined chainId')
   const networkName = getNetworkNameFromChainId(chainId)
