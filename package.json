@@ -23,7 +23,7 @@
     "moleculer-db": "^0.8.23",
     "moleculer-db-adapter-mongoose": "^0.9.2",
     "mongoose": "^6.9.1",
-    "vibegraph": "^0.41.3"
+    "vibegraph": "^0.42.1"
   },
   "devDependencies": {
     "@types/chai": "^4.3.3",

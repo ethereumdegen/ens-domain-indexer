@@ -4727,10 +4727,10 @@ v8-compile-cache@^2.0.3:
   resolved "https://registry.yarnpkg.com/v8-compile-cache/-/v8-compile-cache-2.3.0.tgz#2de19618c66dc247dcfb6f99338035d8245a2cee"
   integrity sha512-l8lCEmLcLYZh4nbunNZvQCJc5pv7+RCwa8q/LdUx8u7lsWvPDKmpodJAJNwkAhJC//dFY48KuIEmjtd4RViDrA==
 
-vibegraph@^0.41.3:
-  version "0.41.4"
-  resolved "https://registry.yarnpkg.com/vibegraph/-/vibegraph-0.41.4.tgz#fd0570a453f0e044e4a52a8a533c38ebd0b39b8d"
-  integrity sha512-WboOci4tusCJT0vEVHOMlziVM7CJw6AQmDMeVnCtC01SRP2YAciRVJYSj8ZKY71zdcq0+fpWLund6nyGf2GsYg==
+vibegraph@^0.42.1:
+  version "0.42.1"
+  resolved "https://registry.yarnpkg.com/vibegraph/-/vibegraph-0.42.1.tgz#494624520c1ac649c00acabb097a33ff4a58e635"
+  integrity sha512-AsHCQalhoa7tMJlsLh6qL3G0sb1pXpLrToDO+6YRCrNZQjv1Z+XFQr74g5VQUmLo77zLoVcmW3C/6n5de50wgQ==
   dependencies:
     "@ensdomains/eth-ens-namehash" "^2.0.15"
     ethers "^5.7.1"
