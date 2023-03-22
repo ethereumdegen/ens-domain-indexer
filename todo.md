@@ -10,3 +10,13 @@ resolve ens in reverse using api ..  use it for 0xjpegs
 
 ex. 
 https://etherscan.io/tx/0x81f56e84c48725783290d75b28ccf1bd406702844346fe429756348b21a73a1c#eventlog
+
+
+
+
+2. write a test that specifically tests the block when i did legacy reverse-register shit 
+
+3. run this code on the cloud server and see if it works or not 
+
+
+4. move these services to the monorepo?  or just a lookup table...

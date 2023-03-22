@@ -1,0 +1,13 @@
+{
+  "apps": [
+    {
+      "name": "ens-domain-indexer-services",
+      "script": "yarn services",
+      "watch": false,
+      "env": {
+        "NODE_ENV": "development"
+      }
+    }
+    
+  ]
+}
