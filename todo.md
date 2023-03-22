@@ -20,3 +20,10 @@ https://etherscan.io/tx/0x81f56e84c48725783290d75b28ccf1bd406702844346fe42975634
 
 
 4. move these services to the monorepo?  or just a lookup table...
+
+
+
+
+5.  ERROR ensapi_1/LEGACY_REVERSE_RECORD_SET: E11000 duplicate key error collection: vibegraph_development.legacy_reverse_record_set index: node_1 dup key: { node: "0xa097f6721ce401e757d1223a763fef49b8b5f90bb18567ddb86fd205dff71d34" }
+
+i wonder if this is an issue..
