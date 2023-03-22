@@ -103,7 +103,7 @@ export default class VibegraphService extends Service {
       crons: [
         {
           name: 'Update Vibegraph',
-          cronTime: '*/2 * * * * *', // every 2 seconds
+          cronTime: '*/6 * * * * *', // every 6 seconds
 
           onTick: async () => {
             const vibegraph = await vibegraphPromise
@@ -181,5 +181,5 @@ export async function updateVibegraph(
 
   await vibegraph.indexData() // fetch the event logs from rpc
 
-  await vibegraph.updateLedger(100) // execute callbacks on indexers from the events
+  await vibegraph.updateLedger(40) // execute callbacks on indexers from the events
 }
